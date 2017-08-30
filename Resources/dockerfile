@@ -1,0 +1,12 @@
+FROM microsoft/dotnet-framework:4.7
+ADD http://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU3/vcredist_x64.exe /vcredist_x64.exe
+RUN C:\vcredist_x64.exe /quiet /install 
+RUN mkdir C:\inetpub\wwwroot\view
+ADD . /inetpub/wwwroot/view
+RUN sc create VtrinServer start=auto binpath="C:\inetpub\wwwroot\view\bin\Vtrin-NetServer.exe"
+CMD powershell C:\inetpub\wwwroot\view\init.ps1
+EXPOSE 80
+EXPOSE 443
+
+
+
